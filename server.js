@@ -45,9 +45,8 @@ app.post("/sendemail", (req, res) => {
 
   transporter.sendMail(mailOptions, (error, details) => {
     if (error) {
-      console.log(error);
       success = false;
-      res.send(JSON.stringify({ success, from: "second" }));
+      res.send(JSON.stringify({ success, from: "second", error }));
     } else {
       res.send(JSON.stringify({ success, details: details.response }));
     }
