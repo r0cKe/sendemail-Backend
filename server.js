@@ -12,7 +12,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send("Hello Visitor");
 });
 
 app.post("/sendemail", (req, res) => {
