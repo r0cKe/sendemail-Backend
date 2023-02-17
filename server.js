@@ -18,11 +18,6 @@ app.get("/", (req, res) => {
 app.post("/sendemail", (req, res) => {
   let success = true;
 
-  if (req.body.name === "" || req.body.email === "" || req.body.phone === "") {
-    success = false;
-    res.send(JSON.stringify({ success, reason: "empty input(s)" }));
-  }
-
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     secure: true,
@@ -46,7 +41,7 @@ app.post("/sendemail", (req, res) => {
   transporter.sendMail(mailOptions, (error, details) => {
     if (error) {
       success = false;
-      res.send(JSON.stringify({ success, error, reason: "error" }));
+      res.send(JSON.stringify({ success, error }));
     } else {
       res.send(JSON.stringify({ success, details: details.response }));
     }
