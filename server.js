@@ -20,7 +20,7 @@ app.post("/sendemail", (req, res) => {
 
   if (req.body.name === "" || req.body.email === "" || req.body.phone === "") {
     success = false;
-    res.send(JSON.stringify({ success }));
+    res.send(JSON.stringify({ success, from: "first" }));
   }
 
   const transporter = nodemailer.createTransport({
@@ -47,7 +47,7 @@ app.post("/sendemail", (req, res) => {
     if (error) {
       console.log(error);
       success = false;
-      res.send(JSON.stringify({ success }));
+      res.send(JSON.stringify({ success, from: "second" }));
     } else {
       res.send(JSON.stringify({ success, details: details.response }));
     }
