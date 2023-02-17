@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 app.post("/sendemail", (req, res) => {
   let success = true;
 
+  // Providing sender credentials
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     secure: true,
@@ -27,6 +28,7 @@ app.post("/sendemail", (req, res) => {
     },
   });
 
+  // Message details
   const mailOptions = {
     from: process.env.USERMAIL,
     to: process.env.RECEIVERMAIL,
@@ -38,6 +40,7 @@ app.post("/sendemail", (req, res) => {
     ${req.body.message !== "" ? `Message: ${req.body.message}` : ""}`,
   };
 
+  // Sending mail
   transporter.sendMail(mailOptions, (error, details) => {
     if (error) {
       success = false;
@@ -47,6 +50,8 @@ app.post("/sendemail", (req, res) => {
     }
   });
 });
+
+
 
 const PORT = process.env.PORT || 3500;
 
