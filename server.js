@@ -20,12 +20,12 @@ app.post("/sendemail", (req, res) => {
 
   if (req.body.name === "" || req.body.email === "" || req.body.phone === "") {
     success = false;
-    res.send(JSON.stringify({ success, from: "first" }));
+    res.send(JSON.stringify({ success, reason: "empty input(s)" }));
   }
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    secure: true, // true for 465, false for other ports
+    secure: true,
     auth: {
       user: process.env.USERMAIL,
       pass: process.env.USERPASS,
@@ -46,7 +46,7 @@ app.post("/sendemail", (req, res) => {
   transporter.sendMail(mailOptions, (error, details) => {
     if (error) {
       success = false;
-      res.send(JSON.stringify({ success, from: "second", error }));
+      res.send(JSON.stringify({ success, error, reason: "error" }));
     } else {
       res.send(JSON.stringify({ success, details: details.response }));
     }
